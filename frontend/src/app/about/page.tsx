@@ -47,9 +47,8 @@ export default function AboutPage() {
             IIT Kharagpur Alumni Initiative
           </h2>
           <p className="mt-3 text-[var(--color-paper-muted)] leading-relaxed">
-            Proud to be part of the IIT Kharagpur alumni network—building
-            connections, mentoring, and contributing to the institute&apos;s
-            continued impact in technology and innovation.
+            I’m an alumnus of the Indian Institute of Technology Kharagpur, passionate about building meaningful AI systems. 
+            Through Neatcraft.ai, I aim to share deep insights and contribute to high-impact work in the AI ecosystem.
           </p>
         </motion.div>
 
