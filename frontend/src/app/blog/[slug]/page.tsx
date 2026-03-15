@@ -23,7 +23,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
-  if (!post) return { title: "Post not found" };
+  if (!post || post.published === false) return { title: "Post not found" };
   return {
     title: post.title,
     description: post.description,
@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
-  if (!post) notFound();
+  if (!post || post.published === false) notFound();
 
   const allPosts = getAllPosts();
   const related = allPosts
@@ -64,7 +64,7 @@ export default async function BlogPostPage({ params }: Props) {
     <article className="py-16 md:py-24">
       <header className="mx-auto max-w-2xl">
         <span className="text-xs uppercase tracking-[0.15em] text-[var(--color-accent)]">
-          {post.category}
+          {post.category ?? post.tags?.[0] ?? "Blog"}
         </span>
         <h1
           className="mt-2 text-3xl font-normal tracking-tight text-[var(--color-paper)] md:text-4xl"

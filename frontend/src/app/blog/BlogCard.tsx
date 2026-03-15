@@ -31,7 +31,7 @@ export default function BlogCard({
       }}
     >
       <span className="text-xs uppercase tracking-[0.15em] text-[var(--color-accent)]">
-        {post.category}
+        {post.category ?? post.tags?.[0] ?? "Blog"}
       </span>
       <h2
         className="mt-2 text-xl font-normal tracking-tight text-[var(--color-paper)] transition-colors group-hover:text-[var(--color-accent)]"
