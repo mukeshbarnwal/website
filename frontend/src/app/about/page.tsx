@@ -29,6 +29,30 @@ export default function AboutPage() {
           the Ask Me Anything demo to see retrieval-augmented generation in
           action.
         </p>
+
+        {/* IIT Kharagpur Alumni Initiative */}
+        <motion.div
+          className="mt-12 rounded-2xl border border-[var(--color-border)] bg-[var(--color-ink-muted)]/50 p-6 md:p-8"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p className="text-xs uppercase tracking-[0.2em] text-[var(--color-paper-subtle)]">
+            Alumni
+          </p>
+          <h2
+            className="mt-2 text-xl font-normal tracking-tight text-[var(--color-paper)] md:text-2xl"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            IIT Kharagpur Alumni Initiative
+          </h2>
+          <p className="mt-3 text-[var(--color-paper-muted)] leading-relaxed">
+            Proud to be part of the IIT Kharagpur alumni network—building
+            connections, mentoring, and contributing to the institute&apos;s
+            continued impact in technology and innovation.
+          </p>
+        </motion.div>
+
         <div className="mt-10 flex flex-wrap gap-4">
           <a href="/projects" className="btn-primary rounded-xl">
             View Production Systems
