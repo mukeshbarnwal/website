@@ -3,7 +3,17 @@ import path from "path";
 import matter from "gray-matter";
 import type { BlogPost, BlogPostFrontmatter } from "@/types/blog";
 
-const BLOG_DIR = path.join(process.cwd(), "content", "blog");
+/** Resolve blog content dir: prefer content/blog under cwd; if missing, try frontend/content/blog (when running from repo root). */
+function getBlogDir(): string {
+  const cwd = process.cwd();
+  const primary = path.join(cwd, "content", "blog");
+  if (fs.existsSync(primary)) return primary;
+  const fromRoot = path.join(cwd, "frontend", "content", "blog");
+  if (fs.existsSync(path.join(cwd, "frontend"))) return fromRoot;
+  return primary;
+}
+
+const BLOG_DIR = getBlogDir();
 
 function getReadingTime(content: string): number {
   const wordsPerMinute = 200;
