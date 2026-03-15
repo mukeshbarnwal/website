@@ -1,0 +1,15 @@
+# Dependencies and build
+node_modules/
+.next/
+out/
+build/
+.vercel
+
+# Env and secrets
+.env
+.env.*
+
+# Misc
+.DS_Store
+*.log
+*.tsbuildinfo
