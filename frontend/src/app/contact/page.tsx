@@ -12,15 +12,38 @@ const socialLinks = [
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setError(null);
     setLoading(true);
-    // Static form – no backend yet (Phase 2)
-    setTimeout(() => {
-      setLoading(false);
+
+    const form = e.currentTarget;
+    const data = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value.trim(),
+      email: (form.elements.namedItem("email") as HTMLInputElement).value.trim(),
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value.trim(),
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        setError(json.error || "Something went wrong. Please try again.");
+        return;
+      }
       setSubmitted(true);
-    }, 600);
+    } catch {
+      setError("Network error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -65,10 +88,15 @@ export default function ContactPage() {
           </h2>
           {submitted ? (
             <p className="mt-4 text-[var(--color-paper-muted)]">
-              Thanks. I’ll get back to you soon. (Form is static for now — connect backend in Phase 5.)
+              Thanks. I’ll get back to you soon.
             </p>
           ) : (
             <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+              {error && (
+                <p className="text-sm text-red-400" role="alert">
+                  {error}
+                </p>
+              )}
               <div>
                 <label htmlFor="name" className="block text-sm text-[var(--color-paper-subtle)]">
                   Name
