@@ -59,7 +59,7 @@ function NewBlogEditor() {
 
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        setError(data.error || `Request failed (${res.status})`);
+        setError(data.error ?? `Request failed (${res.status})`);
         return;
       }
       if (data.published) {

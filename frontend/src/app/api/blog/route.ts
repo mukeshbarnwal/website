@@ -58,9 +58,15 @@ export async function POST(request: Request) {
       (content ?? "").trim()
     );
   } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
     console.error("Blog write error:", err);
+    const isDev = process.env.NODE_ENV !== "production";
     return NextResponse.json(
-      { error: "Failed to save blog post. In production, ensure the app can write to content/blog (e.g. use a writable volume or GitHub API)." },
+      {
+        error: isDev
+          ? `Failed to save: ${message}`
+          : "Failed to save blog post. In production, ensure the app can write to content/blog (e.g. use a writable volume or GitHub API).",
+      },
       { status: 500 }
     );
   }
